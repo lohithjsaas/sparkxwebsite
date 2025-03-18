@@ -135,7 +135,7 @@ export default function ContactPage() {
                     <h3 className="text-lg font-medium mb-1">Email</h3>
                     <p className="text-muted-foreground">
                       <a href="mailto:info@sparkxdetailing.com" className="hover:text-primary">
-                        prabhu@sparkx.com
+                        prabhu@sparkxdetailing.in
                       </a>
                     </p>
                   </div>
