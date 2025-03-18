@@ -10,16 +10,16 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/70 z-10" />
         <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
           <iframe
-            src="https://player.vimeo.com/video/1062794970?h=a142ad800e&autoplay=1&loop=1&background=1&muted=1"
-            className="w-120% h-fit"
+            src="https://player.vimeo.com/video/1066905938?h=a142ad800e&autoplay=1&loop=1&background=1&muted=1"
+            className="w-fit   h-fit"
             allow="autoplay; loop"
             frameBorder="0"
             style={{
               position: "absolute",
               top: 0,
               left: 0,
-              width: "100vw",
-              height: "100%",
+              width: "120%",
+              height: "150%",
               objectFit: "cover",
             }}
             title="SparkX Auto Detailing"
