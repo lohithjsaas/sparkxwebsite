@@ -271,10 +271,10 @@ export default function Home() {
               </p>
               <div className="flex items-center">
                 <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center mr-3">
-                  <span className="text-muted-foreground font-medium">JD</span>
+                  <span className="text-muted-foreground font-medium">LJ</span>
                 </div>
                 <div>
-                  <p className="font-medium">John Doe</p>
+                  <p className="font-medium">Lohith J</p>
                   <p className="text-sm text-muted-foreground">Satisfied Customer</p>
                 </div>
               </div>
@@ -306,10 +306,10 @@ export default function Home() {
               </p>
               <div className="flex items-center">
                 <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center mr-3">
-                  <span className="text-muted-foreground font-medium">JS</span>
+                  <span className="text-muted-foreground font-medium">NR</span>
                 </div>
                 <div>
-                  <p className="font-medium">Jane Smith</p>
+                  <p className="font-medium">Niranjan J</p>
                   <p className="text-sm text-muted-foreground">Ceramic Coating Customer</p>
                 </div>
               </div>
@@ -341,10 +341,10 @@ export default function Home() {
               </p>
               <div className="flex items-center">
                 <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center mr-3">
-                  <span className="text-muted-foreground font-medium">RJ</span>
+                  <span className="text-muted-foreground font-medium">PL</span>
                 </div>
                 <div>
-                  <p className="font-medium">Robert Johnson</p>
+                  <p className="font-medium">Paul</p>
                   <p className="text-sm text-muted-foreground">Bike Detailing Customer</p>
                 </div>
               </div>
