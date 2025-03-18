@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Shield, Clock, Award, Sparkles, Car } from "lucide-react"
+import { ArrowRight, Shield, Clock, Award, Sparkles, Car, MessageCircle } from "lucide-react"
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
         <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
           <iframe
             src="https://player.vimeo.com/video/1066905938?h=a142ad800e&autoplay=1&loop=1&background=1&muted=1"
-            className="w-fit   h-fit"
+            className="w-fit h-fit"
             allow="autoplay; loop"
             frameBorder="0"
             style={{
@@ -51,6 +51,16 @@ export default function Home() {
             </div>
           </div>
         </div>
+        
+        {/* WhatsApp Button */}
+        <a
+          href="https://wa.me/916362613388"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-6 right-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-colors flex items-center justify-center"
+        >
+          <MessageCircle className="h-6 w-6" />
+        </a>
       </section>
 
       {/* Features Section */}
