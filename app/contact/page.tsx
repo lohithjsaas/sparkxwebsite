@@ -157,7 +157,7 @@ export default function ContactPage() {
               <h2 className="text-2xl font-bold mb-6">Location</h2>
               <div className="aspect-video rounded-lg overflow-hidden border">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.7700968650306!2d77.61389!3d12.874927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDUyJzI5LjciTiA3N8KwMzYnNTkuMyJF!5e0!3m2!1sen!2sus!4v1709653422952!5m2!1sen!2sus"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.510011906782!2d77.61389507656665!3d12.874893116988153!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae6bd66d02a847%3A0x46f2de73b602e9f!2sSparkx%20Auto%20Detailing%2C%20PPF%2C%20Ceramic%20Coating%2C%20Graphene%20coating%2C%20Sunfilm%2C%20Car%20Wash%2C%20%5BAKSHAY%20NAGAR%20DLF%20NEW%20TOWN%5D!5e0!3m2!1sen!2sin!4v1743139239917!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
