@@ -16,7 +16,9 @@ export const metadata: Metadata = {
   generator: "v0.dev",
 };
 
-const GTM_ID = "GTM-W3GVLVSB"; // Replace with your GTM ID
+// ✅ Replace with your actual GA4 Measurement ID
+const GTM_ID = "GTM-W3GVLVSB"; // Your Google Tag Manager ID
+const GA_TRACKING_ID = "G-5BM78LNHYT"; // Your Google Analytics 4 ID
 
 export default function RootLayout({
   children,
@@ -26,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        {/* Google Tag Manager Script */}
+        {/* ✅ Google Tag Manager Script */}
         <Script
           id="google-tag-manager"
           strategy="afterInteractive"
@@ -40,9 +42,29 @@ export default function RootLayout({
             `,
           }}
         />
+
+        {/* ✅ Google Analytics (GA4) */}
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=G-5BM78LNHYT`}
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-5BM78LNHYT', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
       </head>
       <body className={`${inter.className} min-h-screen bg-background text-foreground`}>
-        {/* Google Tag Manager (noscript) */}
+        {/* ✅ Google Tag Manager (noscript) */}
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=GTM-W3GVLVSB`}
