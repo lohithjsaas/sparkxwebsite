@@ -40,7 +40,7 @@ export function Navbar() {
           <Image
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Your%20paragraph%20text-GGRhFv9YTEF0GNWR5JcKcm1t5d1B8T.png"
             alt="SparkX Logo"
-            width={600}
+            width={800}
             height={200}
             className="h-28 w-auto"
             priority
