@@ -1,30 +1,100 @@
+"use client"
+
+import type React from "react"
+
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Shield, Clock, Award, Sparkles, Car, MessageCircle } from "lucide-react"
+import { useState, useRef, useEffect } from "react"
 
 export default function Home() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const heroRef = useRef<HTMLDivElement>(null)
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
+  const [isHovering, setIsHovering] = useState(false)
+
+  useEffect(() => {
+    if (heroRef.current) {
+      setDimensions({
+        width: heroRef.current.offsetWidth,
+        height: heroRef.current.offsetHeight,
+      })
+    }
+
+    const handleResize = () => {
+      if (heroRef.current) {
+        setDimensions({
+          width: heroRef.current.offsetWidth,
+          height: heroRef.current.offsetHeight,
+        })
+      }
+    }
+
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (heroRef.current) {
+      const rect = heroRef.current.getBoundingClientRect()
+      setMousePosition({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      })
+    }
+  }
+
+  const handleMouseEnter = () => {
+    setIsHovering(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovering(false)
+  }
+
+  // Calculate spotlight position - exact pixel values for precise positioning
+  const spotlightX = mousePosition.x
+  const spotlightY = mousePosition.y
+
   return (
     <div>
-      {/* Hero Section with Background Video */}
-      <section className="relative w-full">
-        <div className="absolute inset-0 bg-black/70 z-10" />
+      {/* Hero Section with Static Image and Reveal Effect */}
+      <section
+        className="relative w-full"
+        ref={heroRef}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {/* Hero image - fully visible */}
         <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
-          <iframe
-            src="https://player.vimeo.com/video/1066905938?h=a142ad800e&autoplay=1&loop=1&background=1&muted=1"
-            className="w-fit h-fit"
-            allow="autoplay; loop"
-            frameBorder="0"
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "120%",
-              height: "150%",
-              objectFit: "cover",
-            }}
-            title="SparkX Auto Detailing"
-          ></iframe>
+          <div className="w-full h-full relative">
+            <Image
+              src="/ferrari.jpg"
+              alt="Premium Auto Detailing"
+              fill
+              priority
+              className="object-cover"
+              style={{ objectPosition: "center" }}
+            />
+          </div>
         </div>
+
+        {/* Reveal mask - dark overlay with a hole where the cursor is */}
+        <div
+          className="absolute inset-0 z-10 pointer-events-none transition-opacity duration-300"
+          style={{
+            opacity: isHovering ? 1 : 0,
+            background: `radial-gradient(circle 400px at ${spotlightX}px ${spotlightY}px, transparent 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.85) 100%)`,
+          }}
+        />
+
+        {/* Dark overlay - covers the entire image when not hovering */}
+        <div
+          className="absolute inset-0 bg-black/85 z-5 transition-opacity duration-500"
+          style={{ opacity: isHovering ? 0 : 1 }}
+        />
+
         <div className="relative min-h-[90vh] md:h-[100vh] z-20 w-full">
           <div className="w-full h-full flex flex-col justify-center px-8 md:px-16 pt-32">
             <div className="max-w-2xl space-y-4">
