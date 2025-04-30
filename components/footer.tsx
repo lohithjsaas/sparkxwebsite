@@ -101,7 +101,7 @@ export function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 mr-2 text-primary shrink-0 mt-0.5" />
-                <span className="text-muted-foreground">Sparkx Detailing - Yelenahalli Main Rd, Akshayanagara West, DLF Newtown, Akshayanagar, Bengaluru, Karnataka 560076</span>
+                <span className="text-muted-foreground">Sparkx Detailing-Yelenahalli Main Rd, Akshayanagara West, DLF Newtown, Akshayanagar, Bengaluru, Karnataka 560076</span>
               </li>
               <li className="flex items-center">
                 <Phone className="h-5 w-5 mr-2 text-primary shrink-0" />
