@@ -258,7 +258,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="text-center mt-12">
+          {/* <div className="text-center mt-12">
             <Link
               href="/services"
               className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
@@ -266,7 +266,7 @@ export default function Home() {
               View All Services
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
-          </div>
+          </div> */}
         </div>
       </section>
 
