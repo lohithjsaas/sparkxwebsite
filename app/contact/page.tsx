@@ -110,9 +110,9 @@ export default function ContactPage() {
                   <div className="ml-4">
                     <h3 className="text-lg font-medium mb-1">Address</h3>
                     <p className="text-muted-foreground">
-                      Behind Safari Super Market, Akshay Nagar
+                    Yelenahalli Main Rd, Akshayanagara West, DLF Newtown,
                       <br />
-                      Begur, Bengaluru - 560068
+                      Akshayanagar, Bengaluru, Karnataka 560076
                     </p>
                   </div>
                 </div>
