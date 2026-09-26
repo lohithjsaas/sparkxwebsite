@@ -5,13 +5,110 @@ import type React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Shield, Clock, Award, Sparkles, Car, MessageCircle } from "lucide-react"
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useLayoutEffect } from "react"
+import gsap from "gsap"
+import { LOADER_DURATION_MS, hasLoaderFinished } from "@/components/loading-animation"
 
-export default function Home() {
+const features = [
+  {
+    icon: Shield,
+    title: "Premium Quality",
+    text: "We use only the highest quality products and techniques to ensure your vehicle gets the best treatment possible.",
+  },
+  {
+    icon: Clock,
+    title: "Efficient Service",
+    text: "Our experienced team works efficiently to deliver exceptional results without keeping you waiting.",
+  },
+  {
+    icon: Award,
+    title: "Experienced Team",
+    text: "Our detailers are trained professionals with years of experience in the auto detailing industry.",
+  },
+]
+
+const services = [
+  {
+    icon: Car,
+    title: "Premium Car Wash & Detailing",
+    text: "Comprehensive cleaning and detailing for your car, inside and out.",
+    href: "/services/premium-car-wash",
+    image: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    icon: Sparkles,
+    title: "Bike Wash & Detailing",
+    text: "Expert cleaning and detailing services for motorcycles of all types.",
+    href: "/services/bike-wash",
+    image: "https://images.unsplash.com/photo-1558981285-6f0c94958bb6?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    icon: Shield,
+    title: "Ceramic Coating Service",
+    text: "Long-lasting protection for your vehicle's paint with ceramic coating.",
+    href: "/services/ceramic-coating",
+    image: "https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=800&auto=format&fit=crop",
+  },
+]
+
+const testimonials = [
+  {
+    quote:
+      "SparkX did an amazing job on my car. It looks better than when I first bought it! The team was professional and thorough. Highly recommend their services.",
+    initials: "LJ",
+    name: "Lohith J",
+    title: "Satisfied Customer",
+  },
+  {
+    quote:
+      "The ceramic coating service is worth every penny. My car has never looked better and it's so much easier to clean now. The team at SparkX is knowledgeable and friendly.",
+    initials: "NR",
+    name: "Niranjan J",
+    title: "Ceramic Coating Customer",
+  },
+  {
+    quote:
+      "I had my motorcycle detailed at SparkX and I couldn't be happier with the results. They paid attention to every detail and it looks brand new. Great service!",
+    initials: "PL",
+    name: "Paul",
+    title: "Bike Detailing Customer",
+  },
+]
+
+function Stars() {
+  return (
+    <div className="flex gap-0.5 text-brand">
+      {[...Array(5)].map((_, i) => (
+        <svg key={i} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+          <path
+            fillRule="evenodd"
+            d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+            clipRule="evenodd"
+          />
+        </svg>
+      ))}
+    </div>
+  )
+}
+
+function SectionHeader({ title, text }: { title: string; text: string }) {
+  return (
+    <div className="mx-auto mb-10 max-w-2xl text-center md:mb-14">
+      <h2 className="font-display text-[32px] font-semibold leading-[1.05] tracking-[-0.03em] md:text-[44px] lg:text-[52px]">
+        {title}
+      </h2>
+      <p className="mx-auto mt-4 max-w-[46ch] text-[15px] leading-relaxed text-white/60 md:text-[17px]">{text}</p>
+    </div>
+  )
+}
+
+export function HomePage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const heroRef = useRef<HTMLDivElement>(null)
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
   const [isHovering, setIsHovering] = useState(false)
+  const [isTouch, setIsTouch] = useState(false)
+  const touching = useRef(false)
 
   useEffect(() => {
     if (heroRef.current) {
@@ -34,6 +131,29 @@ export default function Home() {
     return () => window.removeEventListener("resize", handleResize)
   }, [])
 
+  // Touch screens have no hover, so the spotlight drifts across the car on its own
+  // (and follows the finger while the hero is being touched).
+  useEffect(() => {
+    if (!window.matchMedia("(pointer: coarse)").matches) return
+    setIsTouch(true)
+    setIsHovering(true)
+    let frame = 0
+    const start = performance.now()
+    const drift = (now: number) => {
+      const el = heroRef.current
+      if (el && !touching.current) {
+        const t = (now - start) / 1000
+        setMousePosition({
+          x: el.offsetWidth * (0.5 + 0.32 * Math.sin(t * 0.5)),
+          y: el.offsetHeight * (0.34 + 0.1 * Math.sin(t * 0.8 + 1)),
+        })
+      }
+      frame = requestAnimationFrame(drift)
+    }
+    frame = requestAnimationFrame(drift)
+    return () => cancelAnimationFrame(frame)
+  }, [])
+
   const handleMouseMove = (e: React.MouseEvent) => {
     if (heroRef.current) {
       const rect = heroRef.current.getBoundingClientRect()
@@ -44,392 +164,272 @@ export default function Home() {
     }
   }
 
+  const handleTouchMove = (e: React.TouchEvent) => {
+    const touch = e.touches[0]
+    if (heroRef.current && touch) {
+      touching.current = true
+      const rect = heroRef.current.getBoundingClientRect()
+      setMousePosition({ x: touch.clientX - rect.left, y: touch.clientY - rect.top })
+    }
+  }
+
   const handleMouseEnter = () => {
     setIsHovering(true)
   }
 
   const handleMouseLeave = () => {
-    setIsHovering(false)
+    if (!isTouch) setIsHovering(false)
   }
+
+  // Hero intro timeline (waits for the loading screen on first visit).
+  useLayoutEffect(() => {
+    const el = heroRef.current
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    const delay = hasLoaderFinished() ? 0.1 : LOADER_DURATION_MS / 1000
+    const ctx = gsap.context(() => {
+      gsap.set(el, { opacity: 0, scale: 0.97 })
+      gsap.set("[data-hero='headline']", { opacity: 0, y: 70 })
+      gsap.set("[data-hero='subheadline']", { opacity: 0, y: 50 })
+      gsap.set("[data-hero='cta']", { opacity: 0, y: 30, scale: 0.96 })
+      gsap
+        .timeline({ defaults: { ease: "power3.out" }, delay })
+        .to(el, { opacity: 1, scale: 1, duration: 1.15, clearProps: "transform" }, 0)
+        .to("[data-hero='headline']", { opacity: 1, y: 0, duration: 1.1, ease: "expo.out" }, 0.25)
+        .to("[data-hero='subheadline']", { opacity: 1, y: 0, duration: 0.9 }, "-=0.7")
+        .to("[data-hero='cta']", { opacity: 1, y: 0, scale: 1, duration: 0.85, stagger: 0.1 }, "-=0.55")
+    }, el)
+    return () => ctx.revert()
+  }, [])
 
   // Calculate spotlight position - exact pixel values for precise positioning
   const spotlightX = mousePosition.x
   const spotlightY = mousePosition.y
+  const spotlightRadius = isTouch ? Math.max(180, dimensions.width * 0.45) : 400
 
   return (
     <div>
       {/* Hero Section with Static Image and Reveal Effect */}
-      <section
-        className="relative w-full"
-        ref={heroRef}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        {/* Hero image - fully visible */}
-        <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
-          <div className="w-full h-full relative">
-            <Image
-              src="/ferrari.jpg"
-              alt="Premium Auto Detailing"
-              fill
-              priority
-              className="object-cover"
-              style={{ objectPosition: "center" }}
-            />
+      <section className="mx-auto w-full max-w-[1600px] px-2 pt-2 sm:px-4 lg:px-6 lg:pt-4">
+        <div
+          ref={heroRef}
+          data-hero="frame"
+          className="relative w-full overflow-hidden rounded-[24px] bg-black ring-1 ring-white/[0.06] lg:rounded-[28px]"
+          onMouseMove={handleMouseMove}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={() => (touching.current = false)}
+        >
+          {/* Hero image - fully visible */}
+          {/* On phones the whole car is fitted to the frame width (no cropping) and sits behind the title */}
+          <div className="absolute inset-0 w-full h-full overflow-hidden z-0">
+            <div className="w-full h-full relative">
+              <Image
+                src="/ferrari.jpg"
+                alt="Premium Auto Detailing"
+                fill
+                priority
+                sizes="100vw"
+                className="object-contain object-[center_22%] md:object-cover md:object-center"
+              />
+            </div>
           </div>
-        </div>
 
-        {/* Reveal mask - dark overlay with a hole where the cursor is */}
-        <div
-          className="absolute inset-0 z-10 pointer-events-none transition-opacity duration-300"
-          style={{
-            opacity: isHovering ? 1 : 0,
-            background: `radial-gradient(circle 400px at ${spotlightX}px ${spotlightY}px, transparent 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.85) 100%)`,
-          }}
-        />
+          {/* Reveal mask - dark overlay with a hole where the cursor is */}
+          <div
+            className="absolute inset-0 z-10 pointer-events-none transition-opacity duration-300"
+            style={{
+              opacity: isHovering ? 1 : 0,
+              background: `radial-gradient(circle ${spotlightRadius}px at ${spotlightX}px ${spotlightY}px, transparent 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.85) 100%)`,
+            }}
+          />
 
-        {/* Dark overlay - covers the entire image when not hovering */}
-        <div
-          className="absolute inset-0 bg-black/85 z-5 transition-opacity duration-500"
-          style={{ opacity: isHovering ? 0 : 1 }}
-        />
+          {/* Dark overlay - covers the entire image when not hovering */}
+          <div
+            className="absolute inset-0 bg-black/85 z-5 transition-opacity duration-500"
+            style={{ opacity: isHovering ? 0 : 1 }}
+          />
 
-        <div className="relative min-h-[90vh] md:h-[100vh] z-20 w-full">
-          <div className="w-full h-full flex flex-col justify-center px-8 md:px-16 pt-32">
-            <div className="max-w-2xl space-y-4">
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white">Premium Auto Detailing Services</h1>
-              <p className="text-lg md:text-xl text-white/90">
+          {/* Legibility gradient behind the copy + faint red glow */}
+          <div className="pointer-events-none absolute inset-0 z-10 hidden md:block md:bg-gradient-to-r md:from-black/75 md:via-black/20 md:to-transparent" />
+          <div
+            className="pointer-events-none absolute inset-0 z-10"
+            style={{ background: "radial-gradient(60% 50% at 15% 100%, rgba(225,37,27,0.18), transparent 70%)" }}
+          />
+
+          <div className="relative z-20 flex w-full flex-col justify-start px-5 pb-10 pt-[112px] sm:px-8 sm:pt-32 md:min-h-[calc(100svh-32px)] md:justify-center md:pb-16 lg:px-12">
+            <div className="max-w-[640px]">
+              <h1
+                data-hero="headline"
+                className="font-display text-[40px] font-semibold leading-[1.02] tracking-[-0.035em] text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)] sm:text-[56px] lg:text-[72px] xl:text-[80px]"
+              >
+                Premium Auto Detailing Services
+              </h1>
+              <p
+                data-hero="subheadline"
+                className="mt-4 max-w-[42ch] text-[15px] leading-[1.55] text-white/70 sm:mt-5 sm:text-[16px] lg:text-[18px]"
+              >
                 Make your vehicle shine like new with our professional detailing services. We take pride in our
                 attention to detail and quality service.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link
-                  href="/book-appointment"
-                  className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
-                >
-                  Book Appointment
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-                <Link
-                  href="/our-works"
-                  className="inline-flex items-center justify-center rounded-md border border-white/30 bg-white/10 backdrop-blur-sm px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-white/20"
-                >
-                  View Our Work
-                </Link>
+              <div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:items-center sm:gap-4">
+                <div data-hero="cta" className="flex">
+                  <Link href="/book-appointment" className="btn-primary group w-full sm:w-auto">
+                    Book Appointment
+                    <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-0.5" />
+                  </Link>
+                </div>
+                <div data-hero="cta" className="flex">
+                  <Link href="/our-works" className="btn-outline w-full sm:w-auto">
+                    View Our Work
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        
+
         {/* WhatsApp Button */}
         <a
           href="https://wa.me/916362613388"
           target="_blank"
           rel="noopener noreferrer"
-          className="fixed bottom-6 right-6 z-50 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-colors flex items-center justify-center"
+          aria-label="Chat on WhatsApp"
+          className="fixed bottom-5 right-5 z-40 flex items-center justify-center rounded-full bg-green-500 p-4 text-white shadow-[0_14px_30px_-10px_rgba(34,197,94,0.6)] transition-transform duration-300 hover:scale-110 active:scale-95 md:bottom-6 md:right-6"
+          style={{ marginBottom: "env(safe-area-inset-bottom)" }}
         >
           <MessageCircle className="h-6 w-6" />
         </a>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 md:py-24 bg-background">
-        <div className="container">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Choose SparkX?</h2>
-            <p className="text-muted-foreground">
-              We deliver exceptional auto detailing services with attention to detail and customer satisfaction as our
-              top priorities.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-card rounded-lg p-6 shadow-sm border">
-              <Shield className="h-10 w-10 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Premium Quality</h3>
-              <p className="text-muted-foreground">
-                We use only the highest quality products and techniques to ensure your vehicle gets the best treatment
-                possible.
-              </p>
-            </div>
-
-            <div className="bg-card rounded-lg p-6 shadow-sm border">
-              <Clock className="h-10 w-10 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Efficient Service</h3>
-              <p className="text-muted-foreground">
-                Our experienced team works efficiently to deliver exceptional results without keeping you waiting.
-              </p>
-            </div>
-
-            <div className="bg-card rounded-lg p-6 shadow-sm border">
-              <Award className="h-10 w-10 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Experienced Team</h3>
-              <p className="text-muted-foreground">
-                Our detailers are trained professionals with years of experience in the auto detailing industry.
-              </p>
-            </div>
-          </div>
+      <section className="mx-auto w-full max-w-[1600px] px-4 pt-20 pb-6 md:px-10 md:pt-28 lg:px-12 lg:pt-32">
+        <SectionHeader
+          title="Why Choose SparkX?"
+          text="We deliver exceptional auto detailing services with attention to detail and customer satisfaction as our top priorities."
+        />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5 lg:gap-6">
+          {features.map(({ icon: Icon, title, text }) => (
+            <article key={title} className="card-surface flex h-full flex-col p-6 lg:p-8">
+              <div className="icon-chip">
+                <Icon strokeWidth={1.6} className="h-5 w-5" />
+              </div>
+              <h3 className="mt-5 font-display text-[18px] font-semibold tracking-tight lg:text-[20px]">{title}</h3>
+              <p className="mt-2 text-[14.5px] leading-relaxed text-white/60 lg:text-[15px]">{text}</p>
+            </article>
+          ))}
         </div>
       </section>
 
       {/* Services Preview */}
-      <section className="py-16 md:py-24 bg-muted">
-        <div className="container">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
-            <p className="text-muted-foreground">
-              We offer a wide range of auto detailing services to keep your vehicle looking its best.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="group relative overflow-hidden rounded-lg">
-              <div className="absolute inset-0 bg-black/60 group-hover:bg-black/70 transition-colors z-10" />
-              <Image
-                src="https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?q=80&w=800&auto=format&fit=crop"
-                alt="Premium Car Wash & Detailing"
-                width={800}
-                height={600}
-                className="h-64 w-full object-cover transition-transform group-hover:scale-105"
-              />
-              <div className="absolute inset-0 z-20 flex flex-col justify-end p-6">
-                <Car className="h-8 w-8 text-primary mb-2" />
-                <h3 className="text-xl font-semibold text-white mb-2">Premium Car Wash & Detailing</h3>
-                <p className="text-white/80 mb-4">Comprehensive cleaning and detailing for your car, inside and out.</p>
-                <Link
-                  href="/services/premium-car-wash"
-                  className="inline-flex items-center text-sm font-medium text-white hover:text-primary"
-                >
-                  Learn More
-                  <ArrowRight className="ml-1 h-4 w-4" />
-                </Link>
+      <section className="mx-auto w-full max-w-[1600px] px-4 pt-20 md:px-10 md:pt-28 lg:px-12 lg:pt-32">
+        <SectionHeader
+          title="Our Services"
+          text="We offer a wide range of auto detailing services to keep your vehicle looking its best."
+        />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5 lg:gap-6">
+          {services.map(({ icon: Icon, title, text, href, image }) => (
+            <Link key={href} href={href} className="card-surface group flex h-full flex-col overflow-hidden">
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src={image}
+                  alt={title}
+                  width={800}
+                  height={600}
+                  data-parallax="10"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
               </div>
-            </div>
-
-            <div className="group relative overflow-hidden rounded-lg">
-              <div className="absolute inset-0 bg-black/60 group-hover:bg-black/70 transition-colors z-10" />
-              <Image
-                src="https://images.unsplash.com/photo-1558981285-6f0c94958bb6?q=80&w=800&auto=format&fit=crop"
-                alt="Bike Wash & Detailing"
-                width={800}
-                height={600}
-                className="h-64 w-full object-cover transition-transform group-hover:scale-105"
-              />
-              <div className="absolute inset-0 z-20 flex flex-col justify-end p-6">
-                <Sparkles className="h-8 w-8 text-primary mb-2" />
-                <h3 className="text-xl font-semibold text-white mb-2">Bike Wash & Detailing</h3>
-                <p className="text-white/80 mb-4">
-                  Expert cleaning and detailing services for motorcycles of all types.
-                </p>
-                <Link
-                  href="/services/bike-wash"
-                  className="inline-flex items-center text-sm font-medium text-white hover:text-primary"
-                >
+              <div className="flex flex-1 flex-col p-6 pt-2 lg:p-7 lg:pt-3">
+                <div className="icon-chip -mt-8 relative bg-card">
+                  <Icon strokeWidth={1.6} className="h-5 w-5" />
+                </div>
+                <h3 className="mt-4 font-display text-[18px] font-semibold tracking-tight lg:text-[20px]">{title}</h3>
+                <p className="mt-2 flex-1 text-[14.5px] leading-relaxed text-white/60">{text}</p>
+                <span className="mt-5 inline-flex items-center gap-1.5 font-display text-[14px] font-semibold text-white">
                   Learn More
-                  <ArrowRight className="ml-1 h-4 w-4" />
-                </Link>
+                  <ArrowRight className="h-4 w-4 text-brand transition-transform duration-300 group-hover:translate-x-1" />
+                </span>
               </div>
-            </div>
-
-            <div className="group relative overflow-hidden rounded-lg">
-              <div className="absolute inset-0 bg-black/60 group-hover:bg-black/70 transition-colors z-10" />
-              <Image
-                src="https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=800&auto=format&fit=crop"
-                alt="Ceramic Coating Service"
-                width={800}
-                height={600}
-                className="h-64 w-full object-cover transition-transform group-hover:scale-105"
-              />
-              <div className="absolute inset-0 z-20 flex flex-col justify-end p-6">
-                <Shield className="h-8 w-8 text-primary mb-2" />
-                <h3 className="text-xl font-semibold text-white mb-2">Ceramic Coating Service</h3>
-                <p className="text-white/80 mb-4">
-                  Long-lasting protection for your vehicle's paint with ceramic coating.
-                </p>
-                <Link
-                  href="/services/ceramic-coating"
-                  className="inline-flex items-center text-sm font-medium text-white hover:text-primary"
-                >
-                  Learn More
-                  <ArrowRight className="ml-1 h-4 w-4" />
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* <div className="text-center mt-12">
-            <Link
-              href="/services"
-              className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
-            >
-              View All Services
-              <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
-          </div> */}
+          ))}
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-card">
-        <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Book Your Appointment?</h2>
-              <p className="text-muted-foreground mb-6">
-                Schedule your auto detailing appointment today and experience the SparkX difference. Our team is ready
-                to make your vehicle shine like new.
-              </p>
-              <Link
-                href="/book-appointment"
-                className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
-              >
-                Book Now
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </div>
-            <div className="relative">
+      <section className="mx-auto w-full max-w-[1600px] px-4 pt-20 md:px-10 md:pt-28 lg:px-12 lg:pt-32">
+        <div className="card-surface relative grid grid-cols-1 items-center gap-8 overflow-hidden p-6 md:p-10 lg:grid-cols-12 lg:gap-12 lg:p-14 md:hover:translate-y-0">
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{ background: "radial-gradient(50% 70% at 0% 0%, rgba(225,37,27,0.16), transparent 70%)" }}
+          />
+          <div className="relative lg:col-span-6">
+            <h2 className="font-display text-[32px] font-semibold leading-[1.05] tracking-[-0.03em] md:text-[44px] lg:text-[52px]">
+              Ready to Book Your Appointment?
+            </h2>
+            <p className="mt-4 max-w-[46ch] text-[15px] leading-relaxed text-white/60 md:text-[17px]">
+              Schedule your auto detailing appointment today and experience the SparkX difference. Our team is ready
+              to make your vehicle shine like new.
+            </p>
+            <Link href="/book-appointment" className="btn-primary group mt-8 w-full sm:w-auto">
+              Book Now
+              <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-0.5" />
+            </Link>
+          </div>
+          <div className="relative lg:col-span-6">
+            <div className="relative overflow-hidden rounded-[18px] md:rounded-[22px]">
               <Image
                 src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?q=80&w=800&auto=format&fit=crop"
                 alt="Car Detailing"
                 width={800}
                 height={600}
-                className="rounded-lg shadow-lg"
+                data-parallax="8"
+                className="w-full"
               />
-              <div className="absolute -bottom-6 -left-6 bg-primary text-primary-foreground p-4 rounded-lg shadow-lg">
-                <p className="text-lg font-bold">100% Satisfaction Guaranteed</p>
-              </div>
+            </div>
+            <div className="pill absolute bottom-4 left-4 bg-black/60 py-2">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
+              </span>
+              <span className="font-display font-semibold">100% Satisfaction Guaranteed</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* Testimonials Preview */}
-      <section className="py-16 md:py-24 bg-background">
-        <div className="container">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Customers Say</h2>
-            <p className="text-muted-foreground">
-              Don't just take our word for it. Here's what our satisfied customers have to say about our services.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-card rounded-lg p-6 shadow-sm border">
-              <div className="flex items-center mb-4">
-                <div className="flex text-primary">
-                  {[...Array(5)].map((_, i) => (
-                    <svg
-                      key={i}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  ))}
-                </div>
-              </div>
-              <p className="text-card-foreground mb-4">
-                "SparkX did an amazing job on my car. It looks better than when I first bought it! The team was
-                professional and thorough. Highly recommend their services."
-              </p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center mr-3">
-                  <span className="text-muted-foreground font-medium">LJ</span>
+      <section className="mx-auto w-full max-w-[1600px] px-4 pt-20 pb-20 md:px-10 md:pt-28 md:pb-28 lg:px-12 lg:pt-32 lg:pb-32">
+        <SectionHeader
+          title="What Our Customers Say"
+          text="Don't just take our word for it. Here's what our satisfied customers have to say about our services."
+        />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5 lg:gap-6">
+          {testimonials.map((t) => (
+            <figure key={t.name} className="card-surface flex h-full flex-col p-6 lg:p-8">
+              <Stars />
+              <blockquote className="mt-5 flex-1 text-[15px] leading-relaxed text-white/80 lg:text-[16px]">
+                "{t.quote}"
+              </blockquote>
+              <figcaption className="mt-6 flex items-center gap-3 border-t border-white/[0.06] pt-5">
+                <div className="grid h-10 w-10 place-items-center rounded-full bg-brand/10 ring-1 ring-brand/20">
+                  <span className="text-[13px] font-semibold text-brand">{t.initials}</span>
                 </div>
                 <div>
-                  <p className="font-medium">Lohith J</p>
-                  <p className="text-sm text-muted-foreground">Satisfied Customer</p>
+                  <p className="font-display text-[14.5px] font-semibold">{t.name}</p>
+                  <p className="text-[13px] text-white/50">{t.title}</p>
                 </div>
-              </div>
-            </div>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
 
-            <div className="bg-card rounded-lg p-6 shadow-sm border">
-              <div className="flex items-center mb-4">
-                <div className="flex text-primary">
-                  {[...Array(5)].map((_, i) => (
-                    <svg
-                      key={i}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  ))}
-                </div>
-              </div>
-              <p className="text-card-foreground mb-4">
-                "The ceramic coating service is worth every penny. My car has never looked better and it's so much
-                easier to clean now. The team at SparkX is knowledgeable and friendly."
-              </p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center mr-3">
-                  <span className="text-muted-foreground font-medium">NR</span>
-                </div>
-                <div>
-                  <p className="font-medium">Niranjan J</p>
-                  <p className="text-sm text-muted-foreground">Ceramic Coating Customer</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-card rounded-lg p-6 shadow-sm border">
-              <div className="flex items-center mb-4">
-                <div className="flex text-primary">
-                  {[...Array(5)].map((_, i) => (
-                    <svg
-                      key={i}
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="w-5 h-5"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  ))}
-                </div>
-              </div>
-              <p className="text-card-foreground mb-4">
-                "I had my motorcycle detailed at SparkX and I couldn't be happier with the results. They paid attention
-                to every detail and it looks brand new. Great service!"
-              </p>
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center mr-3">
-                  <span className="text-muted-foreground font-medium">PL</span>
-                </div>
-                <div>
-                  <p className="font-medium">Paul</p>
-                  <p className="text-sm text-muted-foreground">Bike Detailing Customer</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center mt-12">
-            <Link
-              href="/testimonials"
-              className="inline-flex items-center justify-center rounded-md border border-input bg-background px-6 py-3 text-base font-medium shadow-sm hover:bg-accent hover:text-accent-foreground"
-            >
-              View All Testimonials
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </div>
+        <div className="mt-10 flex justify-center md:mt-14">
+          <Link href="/testimonials" className="btn-outline group w-full sm:w-auto">
+            View All Testimonials
+            <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-0.5" />
+          </Link>
         </div>
       </section>
     </div>

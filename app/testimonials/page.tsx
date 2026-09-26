@@ -1,19 +1,27 @@
+import { PageHeader } from "@/components/page-header"
+import type { Metadata } from "next"
+import { JsonLd } from "@/components/json-ld"
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo"
+
+export const metadata: Metadata = pageMetadata({
+  title: "Customer Reviews & Testimonials",
+  description: "Read what customers say about SparkX Auto Detailing in Bengaluru — ceramic coating, PPF, car detailing and bike detailing reviews from real clients.",
+  path: "/testimonials",
+  keywords: ["SparkX reviews", "car detailing reviews Bengaluru", "ceramic coating reviews Bangalore"],
+})
+
 export default function TestimonialsPage() {
     return (
-      <div className="pt-40 pb-16 md:pt-48 md:pb-20">
-        <div className="container">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">Testimonials</h1>
-            <p className="text-muted-foreground">
-              See what our satisfied customers have to say about our auto detailing services.
-            </p>
-          </div>
+      <div className="pb-20 md:pb-28">
+      <JsonLd data={breadcrumbJsonLd([{ name: "Testimonials", path: "/testimonials" }])} />
+        <PageHeader title="Testimonials" text="See what our satisfied customers have to say about our auto detailing services." />
+      <div className="container">
   
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-card rounded-lg p-6 shadow-sm border">
+              <div key={index} className="card-surface p-6 md:p-8">
                 <div className="flex items-center mb-4">
-                  <div className="flex text-primary">
+                  <div className="flex text-brand">
                     {[...Array(5)].map((_, i) => (
                       <svg
                         key={i}
@@ -33,7 +41,7 @@ export default function TestimonialsPage() {
                 </div>
                 <p className="text-card-foreground mb-4">"{testimonial.content}"</p>
                 <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center mr-3">
+                  <div className="w-10 h-10 rounded-full bg-brand/10 ring-1 ring-brand/20 flex items-center justify-center mr-3">
                     <span className="text-muted-foreground font-medium">{testimonial.initials}</span>
                   </div>
                   <div>

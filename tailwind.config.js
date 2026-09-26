@@ -11,13 +11,14 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: { DEFAULT: "1rem", md: "1.5rem", lg: "2rem" },
       screens: {
-        "2xl": "1400px",
+        "2xl": "1600px",
       },
     },
     extend: {
       colors: {
+        brand: "hsl(var(--brand) / <alpha-value>)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -67,12 +68,16 @@ module.exports = {
           to: { height: 0 },
         },
       },
+      transitionTimingFunction: {
+        pds: "cubic-bezier(0.25, 0.1, 0.25, 1)",
+      },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...require("tailwindcss/defaultTheme").fontFamily.sans],
+        display: ["var(--font-display)", "var(--font-sans)", ...require("tailwindcss/defaultTheme").fontFamily.sans],
       },
     },
   },

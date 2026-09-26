@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { CheckCircle2, CalendarIcon } from "lucide-react"
+import { PageHeader } from "@/components/page-header"
 
 export default function BookAppointmentPage() {
   const [date, setDate] = useState<string>("")
@@ -117,14 +118,9 @@ export default function BookAppointmentPage() {
   const minDate = today.toISOString().split("T")[0]
 
   return (
-    <div className="pt-40 md:pt-48 pb-12 md:pb-16">
+    <div className="pb-20 md:pb-28">
+      <PageHeader title="Book an Appointment" text="Schedule your auto detailing appointment with our team of professionals." />
       <div className="container">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">Book an Appointment</h1>
-          <p className="text-muted-foreground">
-            Schedule your auto detailing appointment with our team of professionals.
-          </p>
-        </div>
 
         {isSuccess ? (
           <Card className="max-w-3xl mx-auto">
@@ -133,14 +129,14 @@ export default function BookAppointmentPage() {
               <CardDescription className="text-center">Thank you for choosing SparkX Auto Detailing</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col items-center justify-center p-6">
-              <CheckCircle2 className="h-16 w-16 text-primary mb-4" />
+              <CheckCircle2 className="h-16 w-16 text-brand mb-4" />
               <p className="text-center mb-6">
                 We have received your appointment request and will contact you shortly to confirm the details. A
                 confirmation email has been sent to your email address.
               </p>
               <button
                 onClick={() => setIsSuccess(false)}
-                className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
+                className="btn-primary group"
               >
                 Book Another Appointment
               </button>
@@ -149,9 +145,9 @@ export default function BookAppointmentPage() {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <Card className="overflow-hidden">
-              <CardHeader className="bg-primary/5 border-b">
+              <CardHeader className="bg-white/[0.02] border-b border-white/[0.06]">
                 <div className="flex items-center gap-2">
-                  <CalendarIcon className="h-5 w-5 text-primary" />
+                  <CalendarIcon className="h-5 w-5 text-brand" />
                   <CardTitle>Select Date & Time</CardTitle>
                 </div>
                 <CardDescription>Choose your preferred date and time for the appointment</CardDescription>
@@ -170,7 +166,7 @@ export default function BookAppointmentPage() {
                         value={date}
                         onChange={handleDateChange}
                         min={minDate}
-                        className="w-full px-4 py-2 border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="input-field"
                         required
                       />
                       <CalendarIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
@@ -204,7 +200,7 @@ export default function BookAppointmentPage() {
             </Card>
 
             <Card className="overflow-hidden">
-              <CardHeader className="bg-primary/5 border-b">
+              <CardHeader className="bg-white/[0.02] border-b border-white/[0.06]">
                 <CardTitle>Your Information</CardTitle>
                 <CardDescription>Fill in your details and service requirements</CardDescription>
               </CardHeader>
@@ -220,7 +216,7 @@ export default function BookAppointmentPage() {
                       name="name"
                       value={formState.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="input-field"
                       required
                     />
                   </div>
@@ -235,7 +231,7 @@ export default function BookAppointmentPage() {
                       name="email"
                       value={formState.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="input-field"
                       required
                     />
                   </div>
@@ -250,7 +246,7 @@ export default function BookAppointmentPage() {
                       name="phone"
                       value={formState.phone}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="input-field"
                       required
                     />
                   </div>
@@ -288,7 +284,7 @@ export default function BookAppointmentPage() {
                         name="vehicleMake"
                         value={formState.vehicleMake}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="input-field"
                         required
                       />
                     </div>
@@ -302,7 +298,7 @@ export default function BookAppointmentPage() {
                         name="vehicleModel"
                         value={formState.vehicleModel}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="input-field"
                         required
                       />
                     </div>
@@ -336,7 +332,7 @@ export default function BookAppointmentPage() {
                       value={formState.message}
                       onChange={handleChange}
                       rows={3}
-                      className="w-full px-4 py-2 border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="input-field"
                     ></textarea>
                   </div>
 
@@ -345,7 +341,7 @@ export default function BookAppointmentPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full inline-flex justify-center rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 disabled:opacity-50"
+                    className="btn-primary w-full disabled:opacity-50"
                   >
                     {isSubmitting ? "Booking..." : "Book Appointment"}
                   </button>
