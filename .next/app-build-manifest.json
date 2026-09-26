@@ -1,118 +1,35 @@
 {
   "pages": {
-    "/_not-found/page": [
-      "static/chunks/webpack-de85f6179c6c236e.js",
-      "static/chunks/fd9d1056-dd504a17eef30e15.js",
-      "static/chunks/117-2f90871eb274e056.js",
-      "static/chunks/main-app-171ff588d754a5b0.js",
-      "static/chunks/app/_not-found/page-6d6f02352e3a435e.js"
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
     ],
     "/layout": [
-      "static/chunks/webpack-de85f6179c6c236e.js",
-      "static/chunks/fd9d1056-dd504a17eef30e15.js",
-      "static/chunks/117-2f90871eb274e056.js",
-      "static/chunks/main-app-171ff588d754a5b0.js",
-      "static/css/d2184dfcce6ac8f3.css",
-      "static/css/8e5c0da85421a75b.css",
-      "static/chunks/c15bf2b0-7971b3d333b0cf68.js",
-      "static/chunks/972-b18fff490812fdae.js",
-      "static/chunks/878-880caa1bc9e3a098.js",
-      "static/chunks/178-a98725ff25570c14.js",
-      "static/chunks/64-6454d55fbdd73cc0.js",
-      "static/chunks/app/layout-3908f2373b73e90b.js"
-    ],
-    "/page": [
-      "static/chunks/webpack-de85f6179c6c236e.js",
-      "static/chunks/fd9d1056-dd504a17eef30e15.js",
-      "static/chunks/117-2f90871eb274e056.js",
-      "static/chunks/main-app-171ff588d754a5b0.js",
-      "static/chunks/c15bf2b0-7971b3d333b0cf68.js",
-      "static/chunks/972-b18fff490812fdae.js",
-      "static/chunks/878-880caa1bc9e3a098.js",
-      "static/chunks/178-a98725ff25570c14.js",
-      "static/chunks/app/page-197a53d7b0ce3b1d.js"
-    ],
-    "/contact/page": [
-      "static/chunks/webpack-de85f6179c6c236e.js",
-      "static/chunks/fd9d1056-dd504a17eef30e15.js",
-      "static/chunks/117-2f90871eb274e056.js",
-      "static/chunks/main-app-171ff588d754a5b0.js",
-      "static/chunks/app/contact/page-a4a46efec8cbc3e2.js"
-    ],
-    "/our-works/page": [
-      "static/chunks/webpack-de85f6179c6c236e.js",
-      "static/chunks/fd9d1056-dd504a17eef30e15.js",
-      "static/chunks/117-2f90871eb274e056.js",
-      "static/chunks/main-app-171ff588d754a5b0.js",
-      "static/chunks/972-b18fff490812fdae.js",
-      "static/chunks/app/our-works/page-2adc83ca99abd8bb.js"
-    ],
-    "/services/bike-wash/page": [
-      "static/chunks/webpack-de85f6179c6c236e.js",
-      "static/chunks/fd9d1056-dd504a17eef30e15.js",
-      "static/chunks/117-2f90871eb274e056.js",
-      "static/chunks/main-app-171ff588d754a5b0.js",
-      "static/chunks/972-b18fff490812fdae.js",
-      "static/chunks/878-880caa1bc9e3a098.js",
-      "static/chunks/app/services/bike-wash/page-1b78286582bb4826.js"
-    ],
-    "/services/ceramic-coating/page": [
-      "static/chunks/webpack-de85f6179c6c236e.js",
-      "static/chunks/fd9d1056-dd504a17eef30e15.js",
-      "static/chunks/117-2f90871eb274e056.js",
-      "static/chunks/main-app-171ff588d754a5b0.js",
-      "static/chunks/972-b18fff490812fdae.js",
-      "static/chunks/878-880caa1bc9e3a098.js",
-      "static/chunks/app/services/ceramic-coating/page-b6d08fc73c6bd23d.js"
-    ],
-    "/services/body-wrapping/page": [
-      "static/chunks/webpack-de85f6179c6c236e.js",
-      "static/chunks/fd9d1056-dd504a17eef30e15.js",
-      "static/chunks/117-2f90871eb274e056.js",
-      "static/chunks/main-app-171ff588d754a5b0.js",
-      "static/chunks/972-b18fff490812fdae.js",
-      "static/chunks/878-880caa1bc9e3a098.js",
-      "static/chunks/app/services/body-wrapping/page-94270205e346be21.js"
-    ],
-    "/services/ppf/page": [
-      "static/chunks/webpack-de85f6179c6c236e.js",
-      "static/chunks/fd9d1056-dd504a17eef30e15.js",
-      "static/chunks/117-2f90871eb274e056.js",
-      "static/chunks/main-app-171ff588d754a5b0.js",
-      "static/chunks/972-b18fff490812fdae.js",
-      "static/chunks/878-880caa1bc9e3a098.js",
-      "static/chunks/app/services/ppf/page-e8416e3af1f438fd.js"
-    ],
-    "/services/premium-car-wash/page": [
-      "static/chunks/webpack-de85f6179c6c236e.js",
-      "static/chunks/fd9d1056-dd504a17eef30e15.js",
-      "static/chunks/117-2f90871eb274e056.js",
-      "static/chunks/main-app-171ff588d754a5b0.js",
-      "static/chunks/972-b18fff490812fdae.js",
-      "static/chunks/878-880caa1bc9e3a098.js",
-      "static/chunks/app/services/premium-car-wash/page-97e0394a56a50333.js"
-    ],
-    "/testimonials/page": [
-      "static/chunks/webpack-de85f6179c6c236e.js",
-      "static/chunks/fd9d1056-dd504a17eef30e15.js",
-      "static/chunks/117-2f90871eb274e056.js",
-      "static/chunks/main-app-171ff588d754a5b0.js",
-      "static/chunks/app/testimonials/page-dd2e0892fbcfd59e.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
     ],
     "/book-appointment/page": [
-      "static/chunks/webpack-de85f6179c6c236e.js",
-      "static/chunks/fd9d1056-dd504a17eef30e15.js",
-      "static/chunks/117-2f90871eb274e056.js",
-      "static/chunks/main-app-171ff588d754a5b0.js",
-      "static/chunks/101-015e23924e080144.js",
-      "static/chunks/app/book-appointment/page-3d1eb1946318600c.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/book-appointment/page.js"
     ],
     "/book-appointment/layout": [
-      "static/chunks/webpack-de85f6179c6c236e.js",
-      "static/chunks/fd9d1056-dd504a17eef30e15.js",
-      "static/chunks/117-2f90871eb274e056.js",
-      "static/chunks/main-app-171ff588d754a5b0.js",
-      "static/chunks/app/book-appointment/layout-01b64dd269b66f5d.js"
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/book-appointment/layout.js"
+    ],
+    "/our-works/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/our-works/page.js"
+    ],
+    "/contact/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/contact/page.js"
     ]
   }
 }

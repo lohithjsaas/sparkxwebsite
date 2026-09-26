@@ -8,7 +8,14 @@ import type { InstagramReel } from "@/lib/instagram"
 const AUTO_SCROLL_PX_PER_SEC = 40
 const RESUME_DELAY_MS = 2500
 
-function ReelTile({ reel }: { reel: InstagramReel }) {
+const TILE_SIZES = {
+  default: "w-[64vw] max-w-[280px] sm:w-[250px] lg:w-[280px] rounded-[20px]",
+  compact: "w-[40vw] max-w-[200px] sm:w-[170px] lg:w-[190px] rounded-[16px]",
+}
+
+type ReelSize = keyof typeof TILE_SIZES
+
+function ReelTile({ reel, size }: { reel: InstagramReel; size: ReelSize }) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
   // Only play reels that are on screen so the page doesn't decode every video at once.
@@ -35,7 +42,7 @@ function ReelTile({ reel }: { reel: InstagramReel }) {
       target="_blank"
       rel="noopener noreferrer"
       draggable={false}
-      className="group relative block shrink-0 w-[64vw] max-w-[280px] sm:w-[250px] lg:w-[280px] overflow-hidden rounded-[20px] bg-muted aspect-[9/16] ring-1 ring-white/[0.08] shadow-[0_10px_28px_-18px_rgba(0,0,0,0.9)] transition-[transform,box-shadow] duration-300 ease-out md:hover:-translate-y-1 md:hover:ring-brand/30 md:hover:shadow-[0_24px_55px_-22px_rgba(225,37,27,0.35)]"
+      className={`group relative block shrink-0 ${TILE_SIZES[size]} overflow-hidden bg-muted aspect-[9/16] ring-1 ring-white/[0.08] shadow-[0_10px_28px_-18px_rgba(0,0,0,0.9)] transition-[transform,box-shadow] duration-300 ease-out md:hover:-translate-y-1 md:hover:ring-brand/30 md:hover:shadow-[0_24px_55px_-22px_rgba(225,37,27,0.35)]`}
     >
       <video
         ref={videoRef}
@@ -52,7 +59,7 @@ function ReelTile({ reel }: { reel: InstagramReel }) {
       <span className="absolute top-3 right-3 grid h-8 w-8 place-items-center rounded-full bg-black/40 ring-1 ring-white/15 backdrop-blur-md">
         <Instagram className="h-4 w-4 text-white" />
       </span>
-      {reel.caption && (
+      {reel.caption && size === "default" && (
         <p className="absolute bottom-0 inset-x-0 p-4 text-sm leading-snug text-white/90 line-clamp-2">
           {reel.caption}
         </p>
@@ -62,7 +69,7 @@ function ReelTile({ reel }: { reel: InstagramReel }) {
   )
 }
 
-export function InstagramReels({ reels }: { reels: InstagramReel[] }) {
+export function InstagramReels({ reels, size = "default" }: { reels: InstagramReel[]; size?: ReelSize }) {
   const trackRef = useRef<HTMLDivElement>(null)
   const pausedUntil = useRef(0)
   const hovering = useRef(false)
@@ -164,7 +171,7 @@ export function InstagramReels({ reels }: { reels: InstagramReel[] }) {
         }}
       >
         {[...reels, ...reels].map((reel, i) => (
-          <ReelTile key={`${reel.id}-${i}`} reel={reel} />
+          <ReelTile key={`${reel.id}-${i}`} reel={reel} size={size} />
         ))}
       </div>
 

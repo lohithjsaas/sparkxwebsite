@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { HomePage } from "@/components/home-page"
+import { getInstagramReels } from "@/lib/instagram"
 import { SITE_URL, business } from "@/lib/site"
 
 export const metadata: Metadata = {
@@ -14,6 +15,10 @@ export const metadata: Metadata = {
   },
 }
 
-export default function Page() {
-  return <HomePage />
+// Refresh the reels (and their signed video URLs) hourly.
+export const revalidate = 3600
+
+export default async function Page() {
+  const reels = await getInstagramReels(16)
+  return <HomePage reels={reels} />
 }

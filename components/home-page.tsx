@@ -8,6 +8,8 @@ import { ArrowRight, Shield, Clock, Award, Sparkles, Car, MessageCircle } from "
 import { useState, useRef, useEffect, useLayoutEffect } from "react"
 import gsap from "gsap"
 import { LOADER_DURATION_MS, hasLoaderFinished } from "@/components/loading-animation"
+import { InstagramReels } from "@/components/instagram-reels"
+import type { InstagramReel } from "@/lib/instagram"
 
 const features = [
   {
@@ -102,7 +104,7 @@ function SectionHeader({ title, text }: { title: string; text: string }) {
   )
 }
 
-export function HomePage() {
+export function HomePage({ reels }: { reels: InstagramReel[] }) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const heroRef = useRef<HTMLDivElement>(null)
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
@@ -301,6 +303,25 @@ export function HomePage() {
           <MessageCircle className="h-6 w-6" />
         </a>
       </section>
+
+      {/* Instagram Reels */}
+      {reels.length > 0 && (
+        <section className="mx-auto w-full max-w-[1600px] pt-20 md:pt-28 lg:pt-32">
+          <div className="px-4 md:px-6 lg:px-8">
+            <SectionHeader
+              title="Our Works"
+              text="Take a look at some of our recent detailing projects and see the SparkX difference."
+            />
+          </div>
+          <InstagramReels reels={reels} size="compact" />
+          <div className="mt-8 flex justify-center px-4">
+            <Link href="/our-works" className="btn-outline group w-full sm:w-auto">
+              View Our Work
+              <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-0.5" />
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* Features Section */}
       <section className="mx-auto w-full max-w-[1600px] px-4 pt-20 pb-6 md:px-10 md:pt-28 lg:px-12 lg:pt-32">

@@ -61,10 +61,11 @@ export function Navbar() {
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href))
 
   return (
-    <div className="fixed inset-x-0 top-0 z-50 w-full">
-      <div className="mx-auto w-full max-w-[1600px] px-2 pt-2 sm:px-4 lg:px-6 lg:pt-4">
+    <div className="pointer-events-none fixed inset-x-0 top-0 z-50 w-full">
+      {/* Wrapper ignores taps so the (hidden) mobile menu never blocks the page beneath it */}
+      <div className="pointer-events-none mx-auto w-full max-w-[1600px] px-2 pt-2 sm:px-4 lg:px-6 lg:pt-4">
         <header
-          className={`relative flex items-center justify-between gap-6 rounded-[20px] px-3 py-1.5 ring-1 backdrop-blur-xl transition-all duration-500 sm:px-5 lg:gap-10 lg:rounded-[24px] lg:px-8 ${
+          className={`pointer-events-auto relative flex items-center justify-between gap-6 rounded-[20px] px-3 py-1.5 ring-1 backdrop-blur-xl transition-all duration-500 sm:px-5 lg:gap-10 lg:rounded-[24px] lg:px-8 ${
             scrolled || isMenuOpen
               ? "bg-[#111]/80 ring-white/[0.08] shadow-[0_2px_6px_rgba(0,0,0,0.3),0_18px_40px_-22px_rgba(0,0,0,0.9)]"
               : "bg-black/30 ring-white/[0.06]"
@@ -155,7 +156,7 @@ export function Navbar() {
         <div
           data-lenis-prevent
           className={`lg:hidden mt-2 overflow-y-auto overscroll-contain rounded-[24px] bg-[#111]/95 ring-1 ring-white/[0.08] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.9)] backdrop-blur-xl transition-all duration-300 ease-out max-h-[calc(100svh-100px)] ${
-            isMenuOpen ? "visible opacity-100 translate-y-0" : "invisible opacity-0 -translate-y-3 pointer-events-none"
+            isMenuOpen ? "pointer-events-auto visible opacity-100 translate-y-0" : "invisible opacity-0 -translate-y-3 pointer-events-none"
           }`}
         >
           <nav className="flex flex-col p-3">
