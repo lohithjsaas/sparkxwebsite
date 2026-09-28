@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { LoopVideo } from "@/components/loop-video"
 import Link from "next/link"
 import { ArrowRight, Check, Shield, Clock, Award } from "lucide-react"
 import type { Metadata } from "next"
@@ -45,13 +46,12 @@ export default function PremiumCarWashPage() {
               </Link>
             </div>
           </div>
-          <div className="relative">
-            <Image
-              src="https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?q=80&w=1200&auto=format&fit=crop"
-              alt="Premium Car Wash & Detailing"
-              width={1200}
-              height={800}
-              className="rounded-[20px] md:rounded-[24px] w-full ring-1 ring-white/[0.06]"
+          <div className="relative mx-auto w-full max-w-[560px]">
+            <LoopVideo
+              src="/videos/sparkx-premium-car-wash-bengaluru.mp4"
+              poster="/images/sparkx-premium-car-wash-bengaluru-poster.jpg"
+              label="SparkX team foam-washing a blue Mini Cooper at the SparkX car wash studio in Akshayanagar, Bengaluru"
+              className="aspect-square w-full rounded-[20px] object-cover ring-1 ring-white/[0.06] md:rounded-[24px]"
             />
             <div className="absolute bottom-4 left-4 md:left-auto md:right-5 md:bottom-5 rounded-full bg-primary text-primary-foreground px-5 py-3 shadow-[0_14px_30px_-12px_rgba(0,0,0,0.8)]">
               <p className="text-lg font-semibold">Professional Service</p>
@@ -321,7 +321,7 @@ export default function PremiumCarWashPage() {
             </div>
             <div className="relative">
               <Image
-                src="https://images.unsplash.com/photo-1600322305530-45714412c5b7?q=80&w=800&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1607860108855-64acf2078ed9?q=80&w=800&auto=format&fit=crop"
                 alt="Car Detailing Results"
                 width={800}
                 height={500}

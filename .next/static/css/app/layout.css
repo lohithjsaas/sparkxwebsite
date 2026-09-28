@@ -1173,6 +1173,9 @@ video {
 .aspect-video {
   aspect-ratio: 16 / 9;
 }
+.aspect-\[4\/5\] {
+  aspect-ratio: 4/5;
+}
 .size-4 {
   width: 1rem;
   height: 1rem;
@@ -1467,6 +1470,12 @@ video {
 }
 .max-w-sm {
   max-width: 24rem;
+}
+.max-w-\[480px\] {
+  max-width: 480px;
+}
+.max-w-\[560px\] {
+  max-width: 560px;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -4190,6 +4199,10 @@ html.lenis body {
 
   .lg\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 
   .lg\:flex-row {

@@ -423,7 +423,7 @@ export default function BodyWrappingPage() {
             </div>
             <div className="relative">
               <Image
-                src="https://images.unsplash.com/photo-1621799754526-a0d52c49fad5?q=80&w=800&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=800&auto=format&fit=crop"
                 alt="Wrapped Vehicle"
                 width={800}
                 height={500}

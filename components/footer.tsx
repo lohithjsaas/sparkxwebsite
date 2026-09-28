@@ -16,6 +16,7 @@ const serviceLinks = [
   { href: "/services/ppf", label: "Paint Protection Film (PPF)" },
   { href: "/services/ceramic-coating", label: "Ceramic Coating Service" },
   { href: "/services/body-wrapping", label: "Body Wrapping Services" },
+  { href: "/services/steam-cleaning", label: "Steam Cleaning" },
 ]
 
 const linkClass = "text-[14.5px] text-white/60 transition-colors duration-200 hover:text-white"

@@ -12,6 +12,7 @@ export async function POST(req: Request) {
       ppf: "Paint Protection Film (PPF)",
       "ceramic-coating": "Ceramic Coating Service",
       "body-wrapping": "Body Wrapping Services",
+      "steam-cleaning": "Steam Cleaning",
     }
     return services[serviceValue] || serviceValue
   }

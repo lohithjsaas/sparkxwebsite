@@ -113,7 +113,7 @@ export default function PPFPage() {
             <div className="card-surface overflow-hidden">
               <div className="relative aspect-video overflow-hidden">
                 <Image
-                  src="https://images.unsplash.com/photo-1577273375713-079df4ead1be?q=80&w=800&auto=format&fit=crop"
+                  src="https://images.unsplash.com/photo-1611566026373-c6c8da0ea861?q=80&w=800&auto=format&fit=crop"
                   alt="Front-End Protection"
                   width={600}
                   height={400}
@@ -322,7 +322,7 @@ export default function PPFPage() {
             </div>
             <div className="lg:w-1/2 relative h-64 lg:h-auto">
               <Image
-                src="https://images.unsplash.com/photo-1621939514649-280e2ee25f60?q=80&w=800&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=800&auto=format&fit=crop"
                 alt="PPF Installation"
                 fill
                 className="object-cover"

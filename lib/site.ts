@@ -9,7 +9,7 @@ export const business = {
   shortName: "SparkX",
   tagline: "Premium Car & Bike Detailing in Bengaluru",
   description:
-    "SparkX Auto Detailing is a premium car and bike detailing studio in Akshayanagar, Bengaluru offering paint protection film (PPF), ceramic & graphene coating, vinyl body wrapping, premium car wash, interior detailing and motorcycle detailing.",
+    "SparkX Auto Detailing is a premium car and bike detailing studio in Akshayanagar, Bengaluru offering paint protection film (PPF), ceramic & graphene coating, vinyl body wrapping, premium car wash, interior steam cleaning and motorcycle detailing.",
   phone: "+91-6362613388",
   phoneE164: "+916362613388",
   whatsapp: "https://wa.me/916362613388",
@@ -71,7 +71,7 @@ export const services: ServiceInfo[] = [
     description:
       "Premium car wash & interior/exterior car detailing in Akshayanagar, Bengaluru. Basic wash ₹999, premium detail ₹2,499, ultimate detail ₹4,999. Book now.",
     keywords: ["car wash Bengaluru", "car detailing Bengaluru", "car detailing Akshayanagar", "interior car cleaning Bangalore", "foam car wash near me"],
-    image: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?q=80&w=1200&auto=format&fit=crop",
+    image: `${SITE_URL}/images/sparkx-premium-car-wash-bengaluru.webp`,
     offers: [
       { name: "Basic Wash", price: 999 },
       { name: "Premium Detail", price: 2499 },
@@ -87,7 +87,7 @@ export const services: ServiceInfo[] = [
     description:
       "Bike wash & motorcycle detailing in Akshayanagar, Bengaluru from ₹699. Safe cleaning, chain care, polishing and protection for every bike. Book at SparkX.",
     keywords: ["bike wash Bengaluru", "bike detailing Bangalore", "motorcycle detailing near me", "superbike detailing Bengaluru", "bike ceramic coating"],
-    image: "https://images.unsplash.com/photo-1558981285-6f0c94958bb6?q=80&w=1200&auto=format&fit=crop",
+    image: `${SITE_URL}/images/sparkx-bike-wash-bengaluru-poster.jpg`,
     offers: [
       { name: "Basic Wash", price: 699 },
       { name: "Premium Detail", price: 1499 },
@@ -103,7 +103,7 @@ export const services: ServiceInfo[] = [
     description:
       "Self-healing, UV-resistant paint protection film (PPF) in Bengaluru. Front-end, partial & full-body PPF with up to 10-year warranty at SparkX Akshayanagar.",
     keywords: ["PPF Bengaluru", "paint protection film Bangalore", "car PPF price Bengaluru", "full body PPF", "self healing PPF near me"],
-    image: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?q=80&w=1200&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=1200&auto=format&fit=crop",
     offers: [],
   },
   {
@@ -115,7 +115,7 @@ export const services: ServiceInfo[] = [
     description:
       "Ceramic coating in Bengaluru with paint correction & certified technicians. Silver from ₹20,000, Gold ₹35,000, Platinum ₹60,000. Book at SparkX.",
     keywords: ["ceramic coating Bengaluru", "ceramic coating price Bangalore", "graphene coating Bengaluru", "car coating near me", "paint correction Bengaluru"],
-    image: "https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=1200&auto=format&fit=crop",
+    image: `${SITE_URL}/images/sparkx-ceramic-coating-bengaluru-poster.jpg`,
     offers: [
       { name: "Silver Package", price: 20000, from: true },
       { name: "Gold Package", price: 35000, from: true },
@@ -137,6 +137,24 @@ export const services: ServiceInfo[] = [
       { name: "Full Wrap", price: 80000, from: true },
       { name: "Custom Design Wrap", price: 120000, from: true },
     ],
+  },
+  {
+    slug: "steam-cleaning",
+    path: "/services/steam-cleaning",
+    name: "Steam Cleaning",
+    serviceType: "Car interior steam cleaning and sanitisation",
+    title: "Car Interior Steam Cleaning & Sanitisation in Bengaluru",
+    description:
+      "Chemical-free car interior steam cleaning in Akshayanagar, Bengaluru — seats, carpets, roof liner, dashboard and AC vents deep-cleaned, sanitised and deodorised.",
+    keywords: [
+      "car steam cleaning Bengaluru",
+      "car interior steam cleaning near me",
+      "car interior sanitisation Bangalore",
+      "car seat cleaning Akshayanagar",
+      "car odour removal Bengaluru",
+    ],
+    image: `${SITE_URL}/images/sparkx-steam-cleaning-bengaluru-poster.jpg`,
+    offers: [],
   },
 ]
 

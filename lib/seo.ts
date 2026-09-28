@@ -105,6 +105,7 @@ export function siteJsonLd() {
           "Graphene coating",
           "Vinyl car wrapping",
           "Motorcycle detailing",
+          "Car interior steam cleaning",
           "Interior car cleaning",
           "Paint correction",
         ],

@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { LoopVideo } from "@/components/loop-video"
 import Link from "next/link"
 import { ArrowRight, Check, Shield, Clock, Award } from "lucide-react"
 import type { Metadata } from "next"
@@ -46,13 +47,12 @@ export default function CeramicCoatingPage() {
               </Link>
             </div>
           </div>
-          <div className="relative">
-            <Image
-              src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=1200&auto=format&fit=crop"
-              alt="Ceramic Coating Application"
-              width={1200}
-              height={800}
-              className="rounded-[20px] md:rounded-[24px] w-full ring-1 ring-white/[0.06]"
+          <div className="relative mx-auto w-full max-w-[560px]">
+            <LoopVideo
+              src="/videos/sparkx-ceramic-coating-bengaluru.mp4"
+              poster="/images/sparkx-ceramic-coating-bengaluru-poster.jpg"
+              label="SparkX detailer buffing ceramic coating to a mirror gloss on a blue car bonnet in Akshayanagar, Bengaluru"
+              className="aspect-square w-full rounded-[20px] object-cover ring-1 ring-white/[0.06] md:rounded-[24px]"
             />
             <div className="absolute bottom-4 left-4 md:left-auto md:right-5 md:bottom-5 rounded-full bg-primary text-primary-foreground px-5 py-3 shadow-[0_14px_30px_-12px_rgba(0,0,0,0.8)]">
               <p className="text-lg font-semibold">Superior Protection</p>
@@ -377,7 +377,7 @@ export default function CeramicCoatingPage() {
             </div>
             <div className="relative">
               <Image
-                src="https://images.unsplash.com/photo-1605515298946-d0573c9b2fcd?q=80&w=800&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?q=80&w=800&auto=format&fit=crop"
                 alt="Ceramic Coated Vehicle"
                 width={800}
                 height={500}

@@ -15,6 +15,16 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/testimonials/page.js"
+    ],
+    "/services/premium-car-wash/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/services/premium-car-wash/page.js"
+    ],
+    "/services/ceramic-coating/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/services/ceramic-coating/page.js"
     ]
   }
 }

@@ -4,11 +4,12 @@ import type React from "react"
 
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Shield, Clock, Award, Sparkles, Car, MessageCircle } from "lucide-react"
+import { ArrowRight, Shield, Clock, Award, Sparkles, Car, MessageCircle, Droplets } from "lucide-react"
 import { useState, useRef, useEffect, useLayoutEffect } from "react"
 import gsap from "gsap"
 import { LOADER_DURATION_MS, hasLoaderFinished } from "@/components/loading-animation"
 import { InstagramReels } from "@/components/instagram-reels"
+import { LoopVideo } from "@/components/loop-video"
 import type { InstagramReel } from "@/lib/instagram"
 import { GoogleReviewsSection, RatingBadge } from "@/components/google-reviews"
 import type { GoogleReviewsData } from "@/lib/google-reviews"
@@ -37,21 +38,32 @@ const services = [
     title: "Premium Car Wash & Detailing",
     text: "Comprehensive cleaning and detailing for your car, inside and out.",
     href: "/services/premium-car-wash",
-    image: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?q=80&w=800&auto=format&fit=crop",
+    image: "/images/sparkx-premium-car-wash-bengaluru-poster.jpg",
+    video: "/videos/sparkx-premium-car-wash-bengaluru.mp4",
   },
   {
     icon: Sparkles,
     title: "Bike Wash & Detailing",
     text: "Expert cleaning and detailing services for motorcycles of all types.",
     href: "/services/bike-wash",
-    image: "https://images.unsplash.com/photo-1558981285-6f0c94958bb6?q=80&w=800&auto=format&fit=crop",
+    image: "/images/sparkx-bike-wash-bengaluru-poster.jpg",
+    video: "/videos/sparkx-bike-wash-bengaluru.mp4",
   },
   {
     icon: Shield,
     title: "Ceramic Coating Service",
     text: "Long-lasting protection for your vehicle's paint with ceramic coating.",
     href: "/services/ceramic-coating",
-    image: "https://images.unsplash.com/photo-1507136566006-cfc505b114fc?q=80&w=800&auto=format&fit=crop",
+    image: "/images/sparkx-ceramic-coating-bengaluru-poster.jpg",
+    video: "/videos/sparkx-ceramic-coating-bengaluru.mp4",
+  },
+  {
+    icon: Droplets,
+    title: "Steam Cleaning",
+    text: "Chemical-free interior steam cleaning that deep-cleans, sanitises and deodorises your cabin.",
+    href: "/services/steam-cleaning",
+    image: "/images/sparkx-steam-cleaning-bengaluru-poster.jpg",
+    video: "/videos/sparkx-steam-cleaning-bengaluru.mp4",
   },
 ]
 
@@ -362,18 +374,28 @@ export function HomePage({
           title="Our Services"
           text="We offer a wide range of auto detailing services to keep your vehicle looking its best."
         />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5 lg:gap-6">
-          {services.map(({ icon: Icon, title, text, href, image }) => (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-4 lg:gap-6">
+          {services.map(({ icon: Icon, title, text, href, image, video }) => (
             <Link key={href} href={href} className="card-surface group flex h-full flex-col overflow-hidden">
               <div className="relative aspect-[4/3] overflow-hidden">
-                <Image
-                  src={image}
-                  alt={title}
-                  width={800}
-                  height={600}
-                  data-parallax="10"
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
+                {video ? (
+                  <LoopVideo
+                    src={video}
+                    poster={image}
+                    label={title}
+                    data-parallax="10"
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                ) : (
+                  <Image
+                    src={image}
+                    alt={title}
+                    width={800}
+                    height={600}
+                    data-parallax="10"
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
               </div>
               <div className="flex flex-1 flex-col p-6 pt-2 lg:p-7 lg:pt-3">

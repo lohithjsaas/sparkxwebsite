@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { LoopVideo } from "@/components/loop-video"
 import Link from "next/link"
 import { ArrowRight, Check, Shield, Clock, Award } from "lucide-react"
 import type { Metadata } from "next"
@@ -45,13 +46,13 @@ export default function BikeWashPage() {
               </Link>
             </div>
           </div>
-          <div className="relative">
-            <Image
-              src="https://images.unsplash.com/photo-1558981285-6f0c94958bb6?q=80&w=1200&auto=format&fit=crop"
-              alt="Bike Wash & Detailing"
-              width={1200}
-              height={800}
-              className="rounded-[20px] md:rounded-[24px] w-full ring-1 ring-white/[0.06]"
+          <div className="relative mx-auto w-full max-w-[480px]">
+            {/* Portrait (9:16) studio footage, framed 4:5 so it doesn't dominate the hero */}
+            <LoopVideo
+              src="/videos/sparkx-bike-wash-bengaluru.mp4"
+              poster="/images/sparkx-bike-wash-bengaluru-poster.jpg"
+              label="SparkX detailer washing a Triumph Tiger 900 at the SparkX bike wash studio in Akshayanagar, Bengaluru"
+              className="aspect-[4/5] w-full rounded-[20px] object-cover ring-1 ring-white/[0.06] md:rounded-[24px]"
             />
             <div className="absolute bottom-4 left-4 md:left-auto md:right-5 md:bottom-5 rounded-full bg-primary text-primary-foreground px-5 py-3 shadow-[0_14px_30px_-12px_rgba(0,0,0,0.8)]">
               <p className="text-lg font-semibold">Specialized Service</p>

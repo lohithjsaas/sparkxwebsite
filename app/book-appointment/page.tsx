@@ -318,6 +318,7 @@ export default function BookAppointmentPage() {
                         <SelectItem value="ppf">Paint Protection Film (PPF)</SelectItem>
                         <SelectItem value="ceramic-coating">Ceramic Coating Service</SelectItem>
                         <SelectItem value="body-wrapping">Body Wrapping Services</SelectItem>
+                        <SelectItem value="steam-cleaning">Steam Cleaning</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
