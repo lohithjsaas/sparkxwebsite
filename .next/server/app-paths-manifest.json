@@ -1,9 +1,5 @@
 {
   "/icon/[[...__metadata_id__]]/route": "app/icon/[[...__metadata_id__]]/route.js",
-  "/apple-icon/[[...__metadata_id__]]/route": "app/apple-icon/[[...__metadata_id__]]/route.js",
-  "/page": "app/page.js",
-  "/our-works/page": "app/our-works/page.js",
-  "/contact/page": "app/contact/page.js",
-  "/manifest.webmanifest/route": "app/manifest.webmanifest/route.js",
-  "/book-appointment/page": "app/book-appointment/page.js"
+  "/testimonials/page": "app/testimonials/page.js",
+  "/page": "app/page.js"
 }

@@ -10,6 +10,8 @@ import gsap from "gsap"
 import { LOADER_DURATION_MS, hasLoaderFinished } from "@/components/loading-animation"
 import { InstagramReels } from "@/components/instagram-reels"
 import type { InstagramReel } from "@/lib/instagram"
+import { GoogleReviewsSection, RatingBadge } from "@/components/google-reviews"
+import type { GoogleReviewsData } from "@/lib/google-reviews"
 
 const features = [
   {
@@ -104,7 +106,13 @@ function SectionHeader({ title, text }: { title: string; text: string }) {
   )
 }
 
-export function HomePage({ reels }: { reels: InstagramReel[] }) {
+export function HomePage({
+  reels,
+  googleReviews,
+}: {
+  reels: InstagramReel[]
+  googleReviews: GoogleReviewsData
+}) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const heroRef = useRef<HTMLDivElement>(null)
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
@@ -287,6 +295,9 @@ export function HomePage({ reels }: { reels: InstagramReel[] }) {
                   </Link>
                 </div>
               </div>
+              <div data-hero="cta" className="mt-6 flex justify-center sm:justify-start">
+                <RatingBadge data={googleReviews} />
+              </div>
             </div>
           </div>
         </div>
@@ -322,6 +333,9 @@ export function HomePage({ reels }: { reels: InstagramReel[] }) {
           </div>
         </section>
       )}
+
+      {/* Google Reviews */}
+      {googleReviews.reviews.length > 0 && <GoogleReviewsSection data={googleReviews} />}
 
       {/* Features Section */}
       <section className="mx-auto w-full max-w-[1600px] px-4 pt-20 pb-6 md:px-10 md:pt-28 lg:px-12 lg:pt-32">
