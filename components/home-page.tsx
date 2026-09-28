@@ -67,46 +67,6 @@ const services = [
   },
 ]
 
-const testimonials = [
-  {
-    quote:
-      "SparkX did an amazing job on my car. It looks better than when I first bought it! The team was professional and thorough. Highly recommend their services.",
-    initials: "LJ",
-    name: "Lohith J",
-    title: "Satisfied Customer",
-  },
-  {
-    quote:
-      "The ceramic coating service is worth every penny. My car has never looked better and it's so much easier to clean now. The team at SparkX is knowledgeable and friendly.",
-    initials: "NR",
-    name: "Niranjan J",
-    title: "Ceramic Coating Customer",
-  },
-  {
-    quote:
-      "I had my motorcycle detailed at SparkX and I couldn't be happier with the results. They paid attention to every detail and it looks brand new. Great service!",
-    initials: "PL",
-    name: "Paul",
-    title: "Bike Detailing Customer",
-  },
-]
-
-function Stars() {
-  return (
-    <div className="flex gap-0.5 text-brand">
-      {[...Array(5)].map((_, i) => (
-        <svg key={i} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-          <path
-            fillRule="evenodd"
-            d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-            clipRule="evenodd"
-          />
-        </svg>
-      ))}
-    </div>
-  )
-}
-
 function SectionHeader({ title, text }: { title: string; text: string }) {
   return (
     <div className="mx-auto mb-10 max-w-2xl text-center md:mb-14">
@@ -415,7 +375,7 @@ export function HomePage({
       </section>
 
       {/* CTA Section */}
-      <section className="mx-auto w-full max-w-[1600px] px-4 pt-20 md:px-10 md:pt-28 lg:px-12 lg:pt-32">
+      <section className="mx-auto w-full max-w-[1600px] px-4 pt-20 md:px-10 md:pt-28 lg:px-12 lg:pt-32 pb-20 md:pb-28 lg:pb-32">
         <div className="card-surface relative grid grid-cols-1 items-center gap-8 overflow-hidden p-6 md:p-10 lg:grid-cols-12 lg:gap-12 lg:p-14 md:hover:translate-y-0">
           <div
             className="pointer-events-none absolute inset-0"
@@ -456,39 +416,6 @@ export function HomePage({
         </div>
       </section>
 
-      {/* Testimonials Preview */}
-      <section className="mx-auto w-full max-w-[1600px] px-4 pt-20 pb-20 md:px-10 md:pt-28 md:pb-28 lg:px-12 lg:pt-32 lg:pb-32">
-        <SectionHeader
-          title="What Our Customers Say"
-          text="Don't just take our word for it. Here's what our satisfied customers have to say about our services."
-        />
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5 lg:gap-6">
-          {testimonials.map((t) => (
-            <figure key={t.name} className="card-surface flex h-full flex-col p-6 lg:p-8">
-              <Stars />
-              <blockquote className="mt-5 flex-1 text-[15px] leading-relaxed text-white/80 lg:text-[16px]">
-                "{t.quote}"
-              </blockquote>
-              <figcaption className="mt-6 flex items-center gap-3 border-t border-white/[0.06] pt-5">
-                <div className="grid h-10 w-10 place-items-center rounded-full bg-brand/10 ring-1 ring-brand/20">
-                  <span className="text-[13px] font-semibold text-brand">{t.initials}</span>
-                </div>
-                <div>
-                  <p className="font-display text-[14.5px] font-semibold">{t.name}</p>
-                  <p className="text-[13px] text-white/50">{t.title}</p>
-                </div>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-
-        <div className="mt-10 flex justify-center md:mt-14">
-          <Link href="/testimonials" className="btn-outline group w-full sm:w-auto">
-            View All Testimonials
-            <ArrowRight className="h-[18px] w-[18px] transition-transform duration-300 group-hover:translate-x-0.5" />
-          </Link>
-        </div>
-      </section>
     </div>
   )
 }
