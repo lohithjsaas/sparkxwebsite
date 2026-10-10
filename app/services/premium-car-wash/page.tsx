@@ -27,8 +27,9 @@ export default function PremiumCarWashPage() {
           <div>
             <h1 className="hero-rise font-display text-[40px] sm:text-[52px] lg:text-[64px] leading-[1.02] tracking-[-0.035em] font-semibold mb-6">Premium Car Wash & Detailing</h1>
             <p className="text-[15px] md:text-[17px] leading-relaxed text-white/60 mb-8">
-              Experience the ultimate in car care with our premium wash and detailing services. We use only the highest
-              quality products and techniques to ensure your vehicle looks its absolute best.
+              Premium car wash and full interior and exterior detailing at our Akshayanagar studio in South Bengaluru,
+              close to Bannerghatta Road, Hulimavu and Begur. We use only the highest quality products and techniques
+              to ensure your vehicle looks its absolute best.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Link

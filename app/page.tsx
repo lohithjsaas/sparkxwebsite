@@ -5,9 +5,9 @@ import { getGoogleReviews } from "@/lib/google-reviews"
 import { SITE_URL, business } from "@/lib/site"
 
 export const metadata: Metadata = {
-  title: { absolute: "SparkX Auto Detailing | PPF & Ceramic Coating in Bengaluru" },
+  title: { absolute: "Car Wash & Car Detailing in Bengaluru | SparkX Auto Detailing" },
   description:
-    "Best rated on Google (4.9★) car & bike detailing in Akshayanagar, Bengaluru: PPF, ceramic coating, car wraps & car wash. Open 7 days. Call +91-6362613388.",
+    "Car wash, car detailing, PPF & ceramic coating studio in Akshayanagar, Bengaluru, near Bannerghatta Road. Rated 4.9★ on Google. Open 7 days, 9 AM–8 PM. Call +91-6362613388.",
   alternates: { canonical: SITE_URL },
   openGraph: {
     url: SITE_URL,

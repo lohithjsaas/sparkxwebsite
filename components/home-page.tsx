@@ -13,6 +13,7 @@ import { LoopVideo } from "@/components/loop-video"
 import type { InstagramReel } from "@/lib/instagram"
 import { GoogleReviewsSection, RatingBadge } from "@/components/google-reviews"
 import type { GoogleReviewsData } from "@/lib/google-reviews"
+import { business } from "@/lib/site"
 
 const features = [
   {
@@ -208,7 +209,7 @@ export function HomePage({
             <div className="w-full h-full relative">
               <Image
                 src="/ferrari.jpg"
-                alt="Premium Auto Detailing"
+                alt="Car being detailed at the SparkX Auto Detailing studio in Akshayanagar, Bengaluru"
                 fill
                 priority
                 sizes="100vw"
@@ -245,14 +246,14 @@ export function HomePage({
                 data-hero="headline"
                 className="font-display text-[40px] font-semibold leading-[1.02] tracking-[-0.035em] text-white drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)] sm:text-[56px] lg:text-[72px] xl:text-[80px]"
               >
-                Premium Auto Detailing Services
+                Premium Car Wash & Detailing in Bengaluru
               </h1>
               <p
                 data-hero="subheadline"
                 className="mt-4 max-w-[42ch] text-[15px] leading-[1.55] text-white/70 sm:mt-5 sm:text-[16px] lg:text-[18px]"
               >
-                Make your vehicle shine like new with our professional detailing services. We take pride in our
-                attention to detail and quality service.
+                Car wash, detailing, PPF and ceramic coating at our Akshayanagar studio, minutes from Bannerghatta
+                Road. Trusted by car and bike owners across South Bengaluru.
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:items-center sm:gap-4">
                 <div data-hero="cta" className="flex">
@@ -372,6 +373,37 @@ export function HomePage({
             </Link>
           ))}
         </div>
+      </section>
+
+      {/* Areas we serve — local search signal for "car wash / car detailing near me" */}
+      <section className="mx-auto w-full max-w-[1600px] px-4 pt-20 md:px-10 md:pt-28 lg:px-12 lg:pt-32">
+        <SectionHeader
+          title="Car Wash & Detailing Near You"
+          text="Our studio is on Yelenahalli Main Road in Akshayanagar, South Bengaluru. Car and bike owners drive in from these neighbourhoods for a wash, detailing, PPF or ceramic coating."
+        />
+        <ul className="flex flex-wrap justify-center gap-2.5 md:gap-3">
+          {business.areaServed
+            .filter((area) => area !== "Bengaluru")
+            .map((area) => (
+              <li
+                key={area}
+                className="rounded-full bg-white/[0.04] px-4 py-2 text-[14px] text-white/75 ring-1 ring-white/[0.08]"
+              >
+                {area}
+              </li>
+            ))}
+        </ul>
+        <p className="mx-auto mt-8 max-w-2xl text-center text-[14.5px] leading-relaxed text-white/50">
+          Open {business.hoursText}.{" "}
+          <Link href="/contact" className="text-white/80 underline-offset-4 hover:underline">
+            Get directions
+          </Link>{" "}
+          or call{" "}
+          <a href={`tel:${business.phoneE164}`} className="text-white/80 underline-offset-4 hover:underline">
+            {business.phone}
+          </a>
+          .
+        </p>
       </section>
 
       {/* CTA Section */}
