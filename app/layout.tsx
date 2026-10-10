@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
   verification: {
-    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "j2vUQydHFYB6QpoW4a3lyh8v3eUluBrrR6wnHtr16g0",
     other: process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
       ? { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION }
       : undefined,
